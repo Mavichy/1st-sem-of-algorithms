@@ -1,1 +1,36 @@
+#include <iostream>
+
+void PrintArray(int n, int arr[]);
+
+void InsertionSort(int n, int arr[]);
+
+int main() {
+    int n;
+    std::cin >> n;
+    int arr[n];
+    for (int i = 0; i < n; ++i) {
+        std::cin >> arr[i];
+    }
+    InsertionSort(n, arr);
+    PrintArray(n, arr);
+    return 0;
+}
+
+void PrintArray(int n, int arr[]) {
+    for (int i = 0; i < n; ++i) {
+        std::cout << arr[i] << ' ';
+    }
+}
+
+void InsertionSort(int n, int arr[]) {
+    int temp;
+    for (int i = 1; i < n; ++i) {
+        while (i >= 1 && arr[i] < arr[i - 1]) {
+            temp = arr[i - 1];
+            arr[i - 1] = arr[i];
+            arr[i] = temp;
+            i--;
+        }
+    }
+}
 
