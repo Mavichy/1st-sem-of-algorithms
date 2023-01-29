@@ -1,0 +1,34 @@
+#include <iostream>
+
+struct Node {
+    Node *next;
+    int key;
+};
+
+struct Stack {
+    int size = 0;
+    Node *head = nullptr;
+
+    bool empty() {
+        return size == 0;
+    }
+
+    Stack *push(int key) {
+        Node *newNode = new Node;
+        newNode->next = head;
+        newNode->key = key;
+        head = newNode;
+        size++;
+    }
+
+    Stack *pop() {
+        if (empty()) {
+            std::cout << "Stack is empty!!!" << '\n';
+        } else {
+            std::cout << head->key << std::endl; //here the pop outputs the element to be deleted.(в данной реализации выводим значение удаляемого узла)
+            head = head->next;
+            size--;
+        }
+    }
+};
+
