@@ -1,0 +1,48 @@
+#include <iostream>
+
+void PrintArray(int n, int arr[]);
+
+void QuickLomutoSort(int l, int r, int arr[]);
+
+
+
+int main() {
+    int n;
+    std::cin >> n;
+    int arr[n];
+    for (int i = 0; i < n; ++i) {
+        std::cin >> arr[i];
+    }
+    QuickLomutoSort(0,n-1, arr);
+    PrintArray(n, arr);
+    return 0;
+}
+
+
+
+void QuickLomutoSort(int l, int r, int arr[]) {
+    if (l >= r){
+        return;
+    }
+    int pivot = arr[r];
+    int j = l;
+    for (int i = l; i < r; i++) {
+        if (arr[i] <= pivot) {
+            int temp1 = arr[j];
+            arr[j] = arr[i];
+            arr[i] = temp1;
+            j++;
+        }
+    }
+    int temp2 = arr[j];
+    arr[j] = arr[r];
+    arr[r] = temp2;
+    QuickLomutoSort(l, j-1, arr);
+    QuickLomutoSort(j+1, r, arr);
+}
+
+void PrintArray(int n, int arr[]) {
+    for (int i = 0; i < n; ++i) {
+        std::cout << arr[i] << ' ';
+    }
+}
