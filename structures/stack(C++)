@@ -32,3 +32,22 @@ struct Stack {
     }
 };
 
+int main() {
+    Stack St;
+    int n = 0;
+    std::cin >> n;
+    char operation;
+    for (int i = 0; i < n; ++i) {
+        std::cin >> operation;
+        if (operation == '+') {
+            int plus;
+            std::cin >> plus;
+            St.push(plus);
+        }else if (operation == '-'){
+            St.pop();
+        }else{
+            std::cout << "Wrong operation!!!\n";
+        }
+    }
+    return 0;
+}
