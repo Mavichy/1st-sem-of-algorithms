@@ -29,13 +29,15 @@ struct Queue{
     }
 
     Queue *pop(){
+        Node* del = head;
         if (empty()){
             std::cout << "Queue is empty!!!"<< std::endl;
         } else {
-            std::cout << head->key << std::endl; //here the pop outputs the element to be deleted.(в данной реализации выводим значение удаляемого узла)
+            std::cout << head->key << std::endl;
             head = head->next;
             size--;
-            }
+        }
+        delete(del);
     }
 };
 
