@@ -1,0 +1,60 @@
+#include <iostream>
+
+struct Node {
+    Node *next;
+    Node *prev;
+    int key;
+};
+
+struct Queue{
+    int size = 0;
+    Node *head = nullptr, *tail = nullptr;
+
+    bool empty(){
+        return size == 0;
+    }
+
+    Queue *push(int key){
+        Node *newNode = new Node;
+        newNode->key = key;
+        if (size == 0){
+            tail = head = newNode;
+        }else{
+            newNode->prev = tail;
+            newNode->next = nullptr;
+            tail->next = newNode;
+            tail = newNode;
+        }
+        size++;
+    }
+
+    Queue *pop(){
+        if (empty()){
+            std::cout << "Queue is empty!!!"<< std::endl;
+        } else {
+            std::cout << head->key << std::endl;
+            head = head->next;
+            size--;
+            }
+    }
+};
+
+int main() {
+    Queue Que;
+    int n = 0;
+    std::cin >> n;
+    char operation;
+    for (int i = 0; i < n; ++i) {
+        std::cin >> operation;
+        if (operation == '+') {
+            int plus;
+            std::cin >> plus;
+            Que.push(plus);
+        }else if (operation == '-'){
+            Que.pop();
+        }else{
+            std::cout << "Wrong operation!!!\n";
+        }
+    }
+    return 0;
+}
