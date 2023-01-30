@@ -2,6 +2,8 @@
 
 void PrintArray(int n, int arr[]);
 
+void QuickHoareSort(int l, int r, int arr[]);
+
 
 
 int main() {
