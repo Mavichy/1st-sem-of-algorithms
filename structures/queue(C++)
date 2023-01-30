@@ -32,7 +32,7 @@ struct Queue{
         if (empty()){
             std::cout << "Queue is empty!!!"<< std::endl;
         } else {
-            std::cout << head->key << std::endl;
+            std::cout << head->key << std::endl; //here the pop outputs the element to be deleted.(в данной реализации выводим значение удаляемого узла)
             head = head->next;
             size--;
             }
