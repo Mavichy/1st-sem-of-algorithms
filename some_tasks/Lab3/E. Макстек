@@ -1,0 +1,84 @@
+Реализуйте работу Макстека (стека, в котором можно найти текущий максимум). Для каждой операции нахождения максимума выведите ее результат.
+На вход программе подаются строки, содержащие команды. Каждая строка содержит одну команду. Команды бывают трёх видов:
+
++ x – добавить в стек число xx (1 < x < 10^9).
+- – изъять элемент из стека. Гарантируется, что не происходит извлечения из пустого стека.
+max – найти максимальное число, содержащееся в стеке.
+
+Входные данные
+В первой строке входного файла содержится количество команд nn (1 <= n <= 10^6). Каждая последующая строка исходного файла содержит ровно одну команду.
+
+Выходные данные
+В ответ на каждую команду max выведите максимальное число, содержащееся в стеке на момент получения команды.
+
+
+#include <iostream>
+
+struct Node {
+    Node *next;
+    int key;
+    int maxi;
+};
+
+struct Stack {
+    int size = 0;
+    Node *head = nullptr;
+
+    bool empty() {
+        return size == 0;
+    }
+
+    Stack *push(int key) {
+        Node *newNode = new Node;
+        newNode->next = head;
+        newNode->key = key;
+        newNode->maxi = key;
+        head = newNode;
+        size++;
+    }
+
+    Stack *pop() {
+        if (empty()) {
+            std::cout << "Stack is empty!!!" << '\n';
+        } else {
+            Node* del = head;
+            head = head->next;
+            size--;
+            delete del;
+        }
+    }
+};
+
+int main() {
+    Stack St;
+    int n = 0;
+    std::cin >> n;
+    std::string operation;
+    for (int i = 0; i < n; ++i) {
+        std::cin >> operation;
+        if (operation == "+") {
+            int plus;
+            std::cin >> plus;
+            St.push(plus);
+            if (St.size > 1) {
+                St.head->maxi = std::max(St.head->next->maxi, plus);
+            }
+        }else if (operation == "max") {
+            std::cout << St.head->maxi<< std::endl;
+        }else if (operation == "-"){
+            St.pop();
+        }else{
+            std::cout << "Wrong operation!!!\n";
+        }
+    }
+    return 0;
+}
+
+
+STDIN	 ||  STDOUT
+5      ||    2
++ 2    ||    2
++ 1    ||
+max    ||
+-      ||
+max    ||
