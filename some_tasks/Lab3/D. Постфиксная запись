@@ -1,0 +1,90 @@
+В постфиксной записи (или обратной польской записи) операция записывается после двух операндов. Например, сумма двух чисел AA и BB записывается как A B +.
+Запись B C + D * обозначает привычное нам (B+C)*D(B+C)∗D, а запись A B C + D * + означает A+(B+C)*DA+(B+C)∗D. Достоинство постфиксной записи в том, 
+что она не требует скобок и дополнительных соглашений о приоритете операторов для своего чтения.
+
+Дано выражение в обратной польской записи. Определите его значение.
+
+Входные данные
+В единственной строке записано выражение в постфиксной записи, содержащее однозначные числа и операции +, -, *. Строка содержит не более 100 чисел и операций.
+
+Выходные данные
+Необходимо вывести значение записанного выражения. Гарантируется, что результат выражения, а также результаты всех промежуточных вычислений по модулю 
+меньше 2^31.
+
+#include <iostream>
+
+struct Node {
+    Node *next;
+    int key;
+};
+
+struct Stack {
+    int size = 0;
+    Node *head = nullptr;
+
+    bool empty() {
+        return size == 0;
+    }
+
+    Stack *push(int key) {
+        Node *newNode = new Node;
+        newNode->next = head;
+        newNode->key = key;
+        head = newNode;
+        size++;
+    }
+
+    Stack *pop() {
+        if (empty()) {
+            std::cout << "Stack is empty!!!" << '\n';
+        } else {
+            Node *del = head;
+            head = head->next;
+            size--;
+            delete del;
+        }
+    }
+};
+
+int main() {
+    Stack St;
+    std::string str;
+    getline(std::cin, str);
+    if (str.size()>2){
+        for (int i = 0; i < str.size(); i++) {
+            if (std::isdigit(str[i])){
+                St.push(str[i] - '0');
+            }else if (str[i] == ' '){
+                continue;
+            }else if (str[i] == '+'){
+                int tmp =  St.head->key;
+                St.pop();
+                tmp+=St.head->key;
+                St.pop();
+                St.push(tmp);
+            }else if (str[i] == '-'){
+                int tmp =  - St.head->key;
+                St.pop();
+                tmp+=St.head->key;
+                St.pop();
+                St.push(tmp);
+            }else if (str[i] == '*'){
+                int tmp =  St.head->key;
+                St.pop();
+                tmp *= St.head->key;
+                St.pop();
+                St.push(tmp);
+            }else{
+                std::cout << "Wrong string";
+                break;
+            }
+        }
+    }
+
+    std::cout<< St.head->key;
+    return 0;
+}
+
+STDIN	         ||     STDOUT
+8 9 + 1 7 - *  ||     -102
+2 5 * 3 4 * +  ||      22
