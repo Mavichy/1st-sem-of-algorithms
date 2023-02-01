@@ -13,7 +13,7 @@
 #include <iostream>
 #include <vector>
 
-int First(int right, std::vector<int> vec, int x) {
+int First(int right, std::vector<int> &vec, int x) {
     int left = 0;
     bool fl = true;
     while (left + 1 < right) {
@@ -36,7 +36,7 @@ int First(int right, std::vector<int> vec, int x) {
     }
 }
 
-int Last(int right, std::vector<int> vec, int x) {
+int Last(int right, std::vector<int> &vec, int x) {
     int left = 0;
     bool fl = true;
     while (left + 1 < right) {
