@@ -1,0 +1,19 @@
+Чтобы измерить время работы программы:
+(Code to measure the running time of the program:)
+
+#include <iostream>
+#include <chrono>
+
+int main() {
+    auto start = std::chrono::steady_clock::now();
+    .
+    .
+    .
+    /*code*/
+    .
+    .
+    .
+    auto end = std::chrono::steady_clock::now();
+    std::cout << "Elapsed time in nanoseconds: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()<< " ns" << std::endl;
+    return 0;
+}
