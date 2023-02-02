@@ -1,0 +1,53 @@
+Гирлянда состоит из n лампочек на общем проводе. Один её конец закреплён на заданной высоте A мм (h_1 = A). 
+Благодаря силе тяжести гирлянда прогибается: высота каждой неконцевой лампы на 1 мм меньше, 
+чем средняя высота ближайших соседей (h_i = (h_{i-1} + h_{i+1}) ÷ 2 − 1 для 1 < i < n).
+
+Требуется найти минимальную высоту второго конца B (B = h_n) при условии, что ни одна из лампочек не должна лежать на земле (h_i > 0 для 1 ≤ i ≤ n).
+
+Входные данные
+В единственной строке содержатся числа n и A ( 3 ≤ n ≤1000 - целое, 10 ≤ A ≤ 1000 - вещественное).
+
+Выходные данные
+Вывести одно вещественное число B с двумя знаками после запятой.
+
+
+
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    int n;
+    double A, B;
+    std::cin >> n >> A;
+    double left = 0;
+    double right = A;
+    double mid;
+    double current, previous, next;
+    bool above_ground;
+
+    while (right>left+0.0000001) {
+        mid = (left + right)/2;
+        current = mid;
+        previous = A;
+        above_ground = current > 0;
+        for (int i = 2; i < n; i++) {
+            next = 2 * (current + 1) - previous;
+            above_ground = above_ground && next > 0;
+            previous = current;
+            current = next;
+        }
+        if (above_ground){
+            right = mid;
+            B = current;
+        }else{
+            left = mid;
+        }
+    }
+
+    std::cout << std::fixed << std::setprecision(2) << B << std::endl;
+    return 0;
+}
+
+STDIN       ||  	STDOUT
+8 15        ||     9.75
+692 532.81  ||  446113.34
